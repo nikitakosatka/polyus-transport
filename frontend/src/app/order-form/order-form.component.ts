@@ -1,6 +1,8 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Order } from '../models/order';
+import { TransportTypesService } from '../transport-types.service';
+import { TransportType } from '../models/transport-type';
 
 @Component({
   selector: 'app-order-form',
@@ -8,22 +10,48 @@ import { Order } from '../models/order';
   styleUrls: ['./order-form.component.css'],
 })
 export class OrderFormComponent implements OnInit {
-  @Output() readonly orderUpdate = new EventEmitter<Order>();
+  @Output() readonly orderChange = new EventEmitter<Order>();
 
   readonly formGroup = new FormGroup({
     title: new FormControl(),
     body: new FormControl(),
-    createdAt: new FormControl(),
     todoAt: new FormControl(),
     finishAt: new FormControl(),
     transportTypeId: new FormControl(),
     address: new FormControl(),
   });
 
-  constructor() {
-    this.formGroup.valueChanges.subscribe(() => {
-      this.orderUpdate.emit();
+  get selectedTransportType(): TransportType | null {
+    if (!this.formGroup.value.transportTypeId) {
+      return null;
+    }
+    return this.transportTypes.find(
+      t => t.id === this.formGroup.value.transportTypeId
+    )!;
+  }
+
+  public transportTypes: TransportType[] = [];
+
+  constructor(private readonly transportTypesService: TransportTypesService) {
+    this.transportTypesService.get().subscribe(transportTypes => {
+      this.transportTypes = transportTypes;
     });
+    this.formGroup.valueChanges.subscribe(() => {
+      this.orderChange.emit(this.makeOrder());
+    });
+  }
+
+  private makeOrder(): Order {
+    const v = this.formGroup.value;
+    return new Order(
+      v.title,
+      v.body,
+      new Date(),
+      v.todoAt,
+      v.finishAt,
+      v.transportTypeId,
+      v.address
+    );
   }
 
   ngOnInit(): void {}

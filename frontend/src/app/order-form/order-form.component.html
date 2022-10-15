@@ -8,7 +8,7 @@
     <textarea rows="10" matInput formControlName="body"></textarea>
   </mat-form-field>
   <mat-form-field appearance="outline">
-    <mat-label>начало</mat-label>
+    <mat-label>Начало</mat-label>
     <input matInput [ngxMatDatetimePicker]="todoAtPicker" formControlName="todoAt">
     <mat-hint>ДД.ММ.ГГГГ</mat-hint>
     <mat-datepicker-toggle matSuffix [for]="$any(todoAtPicker)"></mat-datepicker-toggle>
@@ -22,8 +22,10 @@
     <ngx-mat-datetime-picker #finishAtPicker></ngx-mat-datetime-picker>
   </mat-form-field>
   <mat-form-field appearance="outline">
-    <mat-label>ID типа транспорта</mat-label>
-    <input matInput type="number" formControlName="transportTypeId">
+    <mat-label>Транспорт</mat-label>
+    <mat-select formControlName="transportTypeId">
+      <mat-option *ngFor="let type of transportTypes" [value]="type.id">{{type.name}}</mat-option>
+    </mat-select>
   </mat-form-field>
   <mat-form-field appearance="outline">
     <mat-label>Адрес</mat-label>

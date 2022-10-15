@@ -1,3 +1,5 @@
+import { TransportType } from './transport-type';
+
 export class Order {
   constructor(
     public title: string,
@@ -5,7 +7,7 @@ export class Order {
     public createdAt: Date,
     public todoAt: Date,
     public finishAt: Date,
-    public transportTypeId: string,
+    public transportType: TransportType,
     public address: string
   ) {}
 }
@@ -17,21 +19,38 @@ export function serializeOrder(order: Order): NetworkOrder {
     createdAt: order.createdAt.toISOString(),
     todoAt: order.todoAt.toISOString(),
     finishAt: order.finishAt.toISOString(),
-    transportTypeId: order.transportTypeId,
+    transportTypeId: order.transportType.id,
     address: order.address,
   };
 }
 
-export function deserializeOrder(order: NetworkOrder): Order {
+export function deserializeOrder(
+  order: NetworkOrder,
+  transportTypes: TransportType[]
+): Order {
+  const transportType = transportTypes.find(
+    t => t.id === order.transportTypeId
+  );
+  if (!transportType) {
+    throw new TransportTypeNotFoundError(order.transportTypeId);
+  }
+
   return new Order(
     order.title,
     order.body,
     new Date(order.createdAt),
     new Date(order.todoAt),
     new Date(order.finishAt),
-    order.transportTypeId,
+    transportType,
     order.address
   );
+}
+
+export class TransportTypeNotFoundError extends Error {
+  constructor(transportTypeId: string) {
+    super(`Transport type with id ${transportTypeId} not found`);
+    this.name = 'TransportTypeNotFoundError';
+  }
 }
 
 export interface NetworkOrder {

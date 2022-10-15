@@ -10,17 +10,17 @@ import { map, Observable } from 'rxjs';
 
 @Injectable()
 export class JsonKeysToCamelCaseInterceptor implements HttpInterceptor {
-  constructor() {}
-
   intercept(
     request: HttpRequest<unknown>,
     next: HttpHandler
   ): Observable<HttpEvent<unknown>> {
-    return next.handle(request).pipe(
+    const newRequest = request.clone({
+      body: transformKeys(request.body, toSnake),
+    });
+    return next.handle(newRequest).pipe(
       map(event => {
         if (isJsonResponseEvent(event)) {
-          const bodyObj = JSON.parse(event.body);
-          return event.clone({ body: JSON.stringify(keysToCamel(bodyObj)) });
+          return event.clone({ body: transformKeys(event.body, toCamel) });
         }
         return event;
       })
@@ -43,16 +43,24 @@ function toCamel(s: string) {
   });
 }
 
-function keysToCamel(o: any): any {
+function toSnake(s: string) {
+  return s
+    .replace(/\w([A-Z])/g, m => {
+      return m[0] + '_' + m[1];
+    })
+    .toLowerCase();
+}
+
+function transformKeys(o: any, transformer: (s: string) => string): any {
   if (o === Object(o) && !Array.isArray(o) && typeof o !== 'function') {
     const n = {} as { [key: string]: any };
     Object.keys(o).forEach(k => {
-      n[toCamel(k)] = keysToCamel(o[k]);
+      n[transformer(k)] = transformKeys(o[k], transformer);
     });
     return n;
   } else if (Array.isArray(o)) {
     return o.map(i => {
-      return keysToCamel(i);
+      return transformKeys(i, transformer);
     });
   }
   return o;

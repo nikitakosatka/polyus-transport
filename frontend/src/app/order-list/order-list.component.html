@@ -3,6 +3,6 @@
   {{order.body}}
   Создана: {{order.createdAt | date}}
   Заявка на время с {{order.todoAt | date}} по {{order.finishAt | date}}
-  Транспорт: {{order.transportTypeId}}
+  Транспорт: {{order.transportType.name}}
   Адрес: {{order.address}}
 </mat-card>

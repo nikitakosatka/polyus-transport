@@ -7,7 +7,8 @@ import {
 } from './models/order';
 import { HttpClient } from '@angular/common/http';
 import { API_BASE_URL } from './api-config.module';
-import { map } from 'rxjs';
+import { forkJoin, map, Observable } from 'rxjs';
+import { TransportTypesService } from './transport-types.service';
 
 @Injectable({
   providedIn: 'root',
@@ -15,13 +16,19 @@ import { map } from 'rxjs';
 export class OrdersService {
   constructor(
     private readonly httpClient: HttpClient,
-    @Inject(API_BASE_URL) private readonly apiBaseUrl: string
+    @Inject(API_BASE_URL) private readonly apiBaseUrl: string,
+    private readonly transportTypesService: TransportTypesService
   ) {}
 
-  getAll() {
-    return this.httpClient
-      .get<NetworkOrder[]>(`${this.apiBaseUrl}/order/all`)
-      .pipe(map(orders => orders.map(order => deserializeOrder(order))));
+  getAll(): Observable<Order[]> {
+    return forkJoin([
+      this.httpClient.get<NetworkOrder[]>(`${this.apiBaseUrl}/order/all`),
+      this.transportTypesService.get(),
+    ]).pipe(
+      map(([orders, transportTypes]) => {
+        return orders.map(o => deserializeOrder(o, transportTypes));
+      })
+    );
   }
 
   create(order: Order) {
