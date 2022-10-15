@@ -25,18 +25,23 @@ export class AuthService {
   ) {}
 
   login(creds: Credentials): Observable<boolean> {
-    return this.http.post<LoginResponse>('/api/login', creds).pipe(
-      catchError(err => this.handleLoginError(err as HttpErrorResponse)),
-      map(response => {
-        if (response) {
-          this.storage.setItem(
-            AUTH_TOKEN_STORAGE_KEY,
-            response.token_type + ' ' + response.access_token
-          );
-        }
-        return Boolean(response);
-      })
-    );
+    const formData = new FormData();
+    formData.set('username', creds.username);
+    formData.set('password', creds.password);
+    return this.http
+      .post<LoginResponse>(`${this.apiBaseUrl}/auth/customer/login`, formData)
+      .pipe(
+        catchError(err => this.handleLoginError(err as HttpErrorResponse)),
+        map(response => {
+          if (response) {
+            this.storage.setItem(
+              AUTH_TOKEN_STORAGE_KEY,
+              response.token_type + ' ' + response.access_token
+            );
+          }
+          return Boolean(response);
+        })
+      );
   }
 
   private handleLoginError(error: HttpErrorResponse): Observable<null> {

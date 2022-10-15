@@ -10,6 +10,6 @@ export class LoginPageComponent {
   constructor(private readonly router: Router) {}
 
   handleLogin() {
-    this.router.navigate([]);
+    this.router.navigate(['/']);
   }
 }

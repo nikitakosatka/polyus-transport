@@ -29,15 +29,24 @@ export class LoginFormComponent {
 
   tryLogin() {
     this.loginInProgress = true;
+    this.formGroup.disable();
     this.authService
       .login(this.formGroup.value as Credentials)
       .subscribe(success => {
         this.loginInProgress = false;
+        this.formGroup.enable();
         if (!success) {
           this.loginFailed = true;
         } else {
           this.login.emit();
         }
       });
+  }
+
+  onPasswordFieldKeyUp(event: KeyboardEvent) {
+    if (event.key === 'Enter') {
+      event.preventDefault();
+      this.tryLogin();
+    }
   }
 }
