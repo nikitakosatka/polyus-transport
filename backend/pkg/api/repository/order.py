@@ -8,6 +8,7 @@ def create(item, db):
                          title=item.title,
                          body=item.body,
                          created_at=item.created_at,
+                         customer_id=item.customer_is,
                          todo_at=item.todo_at,
                          finish_at=item.finish_at,
                          transport_type_id=item.transport_type_id,
