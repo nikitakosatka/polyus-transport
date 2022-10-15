@@ -97,6 +97,9 @@
             "scripts": []
           }
         }
+      },
+      "i18n": {
+        "sourceLocale": "ru-RU"
       }
     }
   }

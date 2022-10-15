@@ -8,9 +8,26 @@ export class Order {
     public todoAt: Date,
     public finishAt: Date,
     public transportType: TransportType,
-    public address: string
+    public address: string,
+    public status: OrderStatus = OrderStatus.Todo
   ) {}
+
+  get humanReadableStatus(): string {
+    return orderStatusesHumanReadableNames[this.status];
+  }
 }
+
+enum OrderStatus {
+  Todo = 'TODO',
+  InProcess = 'IN_PROCESS',
+  Done = 'DONE',
+}
+
+const orderStatusesHumanReadableNames = {
+  [OrderStatus.Todo]: 'Ждет исполнения',
+  [OrderStatus.InProcess]: 'В работе',
+  [OrderStatus.Done]: 'Выполнена',
+};
 
 export function serializeOrder(order: Order, customerId: string): NetworkOrder {
   return {
@@ -22,6 +39,7 @@ export function serializeOrder(order: Order, customerId: string): NetworkOrder {
     transportTypeId: order.transportType.id,
     address: order.address,
     customerId,
+    status: order.status,
   };
 }
 
@@ -43,7 +61,8 @@ export function deserializeOrder(
     new Date(order.todoAt),
     new Date(order.finishAt),
     transportType,
-    order.address
+    order.address,
+    order.status
   );
 }
 
@@ -63,4 +82,5 @@ export interface NetworkOrder {
   transportTypeId: string;
   address: string;
   customerId: string;
+  status: OrderStatus;
 }

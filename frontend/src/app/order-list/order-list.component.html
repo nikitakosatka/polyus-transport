@@ -4,5 +4,6 @@
   Создана: {{order.createdAt | date}}<br>
   Заявка на время с {{order.todoAt | date}} по {{order.finishAt | date}}<br>
   Транспорт: {{order.transportType.name}}<br>
-  Адрес: {{order.address}}
+  Адрес: {{order.address}}<br>
+  Статус: {{order.humanReadableStatus}}
 </mat-card>

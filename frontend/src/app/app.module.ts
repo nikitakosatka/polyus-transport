@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -21,13 +21,16 @@ import { CreateOrderDialogComponent } from './create-order-dialog/create-order-d
 import { JsonKeysToCamelCaseInterceptor } from './json-keys-to-camel-case.interceptor';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatNativeDateModule } from '@angular/material/core';
 import {
   NgxMatDatetimePickerModule,
   NgxMatNativeDateModule,
 } from '@angular-material-components/datetime-picker';
 import { OrderListComponent } from './order-list/order-list.component';
 import { MatSelectModule } from '@angular/material/select';
+import localeRu from '@angular/common/locales/ru';
+import { registerLocaleData } from '@angular/common';
+
+registerLocaleData(localeRu);
 
 @NgModule({
   declarations: [
@@ -64,6 +67,7 @@ import { MatSelectModule } from '@angular/material/select';
       useClass: JsonKeysToCamelCaseInterceptor,
       multi: true,
     },
+    { provide: LOCALE_ID, useValue: 'ru-RU' },
   ],
   bootstrap: [AppComponent],
 })
