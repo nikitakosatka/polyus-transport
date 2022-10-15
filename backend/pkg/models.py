@@ -5,7 +5,7 @@ from sqlalchemy import Column, Integer, String, ForeignKey
 from sqlalchemy.orm import relationship
 
 from backend.pkg.db import Base
-from backend.pkg.schema import TransportStatus, OrderStatus
+from backend.pkg.schema import TransportStatus, OrderStatus, DriverStatus
 
 
 class Customer(Base):
@@ -15,6 +15,29 @@ class Customer(Base):
                 unique=True, nullable=False)
     name = Column(String, nullable=False)
     orders = relationship('Order')
+    email = Column(String, nullable=False)
+    password = Column(String, nullable=False)
+
+
+class Driver(Base):
+    __tablename__ = 'driver'
+
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid4,
+                unique=True, nullable=False)
+    name = Column(String, nullable=False)
+    status = Column(ENUM(DriverStatus), nullable=False,
+                    default=DriverStatus['available'])
+    orders = relationship('Order')
+    email = Column(String, nullable=False)
+    password = Column(String, nullable=False)
+
+
+class Dispatcher(Base):
+    __tablename__ = 'dispatcher'
+
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid4,
+                unique=True, nullable=False)
+    name = Column(String, nullable=False)
     email = Column(String, nullable=False)
     password = Column(String, nullable=False)
 
@@ -29,6 +52,8 @@ class Order(Base):
     customer_id = Column(UUID(as_uuid=True),
                          ForeignKey('customer.id'),
                          nullable=False)
+    driver_id = Column(UUID(as_uuid=True), ForeignKey('driver.id'),
+                       nullable=True)
     created_at = Column(TIMESTAMP(timezone=False), nullable=False)
     todo_at = Column(TIMESTAMP(timezone=False), nullable=False)
     finish_at = Column(TIMESTAMP(timezone=False), nullable=False)
