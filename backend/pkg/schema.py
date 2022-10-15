@@ -1,6 +1,6 @@
 from datetime import datetime
 from enum import unique, Enum
-from typing import Optional
+from typing import Optional, List
 from uuid import UUID, uuid4
 
 from pydantic import BaseModel, validator, Field
@@ -18,6 +18,12 @@ class OrderStatus(str, Enum):
     todo = 'TODO'
     in_process = 'IN_PROCESS'
     done = 'DONE'
+
+
+@unique
+class DriverStatus(str, Enum):
+    available = 'AVAILABLE'
+    working = 'WORKING'
 
 
 class Order(BaseModel):
@@ -39,3 +45,11 @@ class Token(BaseModel):
 
 class TokenData(BaseModel):
     email: Optional[str] = None
+
+
+class Customer(BaseModel):
+    id: UUID
+    name: str
+    orders: List[Order] = []
+    email: str
+    password: str
