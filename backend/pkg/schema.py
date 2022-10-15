@@ -26,12 +26,20 @@ class DriverStatus(str, Enum):
     working = 'WORKING'
 
 
+@unique
+class OrderRate(str, Enum):
+    low = 'LOW'
+    normal = 'NORMAL'
+    high = 'HIGH'
+
+
 class Order(BaseModel):
     id: UUID = Field(default_factory=uuid4)
     title: str
     body: str
     created_at: datetime
     customer_id: UUID
+    rate: OrderRate
     todo_at: datetime
     finish_at: datetime
     transport_type_id: UUID

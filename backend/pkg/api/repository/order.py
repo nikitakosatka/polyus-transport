@@ -12,6 +12,7 @@ def create(item, db):
                          todo_at=item.todo_at,
                          finish_at=item.finish_at,
                          transport_type_id=item.transport_type_id,
+                         rate=item.rate,
                          status=item.status,
                          address=item.address)
 
@@ -59,7 +60,7 @@ def remove(id, db):
 def get_by_status(status, transport_type_id, db):
     return db.query(models.Order).filter(
         models.Order.status == schema.OrderStatus[status]
-        and models.Order.transport_type_id == transport_type_id).all()
+        and models.Order.transport_type_id == transport_type_id).order_by().all()
 
 
 def get_by_driver_id(id, db):

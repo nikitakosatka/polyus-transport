@@ -5,7 +5,8 @@ from sqlalchemy import Column, Integer, String, ForeignKey
 from sqlalchemy.orm import relationship
 
 from backend.pkg.db import Base
-from backend.pkg.schema import TransportStatus, OrderStatus, DriverStatus
+from backend.pkg.schema import TransportStatus, OrderStatus, DriverStatus, \
+    OrderRate
 
 
 class Customer(Base):
@@ -52,6 +53,7 @@ class Order(Base):
                 unique=True, nullable=False)
     title = Column(String, nullable=False)
     body = Column(String, nullable=True)
+    rate = Column(ENUM(OrderRate), nullable=False, default=OrderRate['normal'])
     customer_id = Column(UUID(as_uuid=True),
                          ForeignKey('customer.id'),
                          nullable=False)
