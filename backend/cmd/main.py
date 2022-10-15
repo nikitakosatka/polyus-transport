@@ -4,7 +4,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from backend.pkg.db import engine
 from backend.pkg.models import Base
 from backend.pkg.api.router import authentication, order, transport_type, \
-    transport, customer, driver
+    transport, customer, driver, dispatcher
 
 app = FastAPI()
 
@@ -28,3 +28,4 @@ app.include_router(transport_type.router)
 app.include_router(transport.router)
 app.include_router(customer.router)
 app.include_router(driver.router)
+app.include_router(dispatcher.router)

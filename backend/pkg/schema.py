@@ -76,3 +76,10 @@ class Driver(BaseModel):
     email: str
     password: str
     transport_type: TransportType
+
+
+class Dispatcher(BaseModel):
+    id: UUID = Field(default_factory=uuid4)
+    name: str
+    email: str
+    password: str
