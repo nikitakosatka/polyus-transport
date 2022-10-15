@@ -1,0 +1,32 @@
+<form [formGroup]="formGroup">
+  <mat-form-field appearance="outline">
+    <mat-label>Краткое описание</mat-label>
+    <input matInput formControlName="title">
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Подробное описание</mat-label>
+    <textarea rows="10" matInput formControlName="body"></textarea>
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>начало</mat-label>
+    <input matInput [ngxMatDatetimePicker]="todoAtPicker" formControlName="todoAt">
+    <mat-hint>ДД.ММ.ГГГГ</mat-hint>
+    <mat-datepicker-toggle matSuffix [for]="$any(todoAtPicker)"></mat-datepicker-toggle>
+    <ngx-mat-datetime-picker #todoAtPicker></ngx-mat-datetime-picker>
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Конец</mat-label>
+    <input matInput [ngxMatDatetimePicker]="finishAtPicker" formControlName="finishAt">
+    <mat-hint>ДД.ММ.ГГГГ</mat-hint>
+    <mat-datepicker-toggle matSuffix [for]="$any(finishAtPicker)"></mat-datepicker-toggle>
+    <ngx-mat-datetime-picker #finishAtPicker></ngx-mat-datetime-picker>
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>ID типа транспорта</mat-label>
+    <input matInput type="number" formControlName="transportTypeId">
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Адрес</mat-label>
+    <input matInput formControlName="address">
+  </mat-form-field>
+</form>
