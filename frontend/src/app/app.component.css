@@ -21,3 +21,8 @@ main {
   align-items: center;
   gap: 0.5em;
 }
+
+.links {
+  display: flex;
+  flex-direction: column;
+}

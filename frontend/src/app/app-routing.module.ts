@@ -4,9 +4,20 @@ import { LoginPageComponent } from './pages/login-page/login-page.component';
 import { MainPageComponent } from './pages/main-page/main-page.component';
 import { IsAuthedGuard } from './is-authed.guard';
 import { IsNotAuthedGuard } from './is-not-authed.guard';
+import { TransportPageComponent } from './transport-page/transport-page.component';
 
 const routes: Routes = [
-  { path: '', component: MainPageComponent, canActivate: [IsAuthedGuard] },
+  { path: '', redirectTo: 'orders', pathMatch: 'full' },
+  {
+    path: 'orders',
+    component: MainPageComponent,
+    canActivate: [IsAuthedGuard],
+  },
+  {
+    path: 'transport',
+    component: TransportPageComponent,
+    canActivate: [IsAuthedGuard],
+  },
   {
     path: 'login',
     component: LoginPageComponent,
