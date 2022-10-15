@@ -13,4 +13,6 @@
   <ngx-mat-datetime-picker #finishAtPicker></ngx-mat-datetime-picker>
 </mat-form-field>
 <br><br>
-<mwl-calendar-week-view [viewDate]="calendarViewDate" [events]="(events$ | async) ?? []"></mwl-calendar-week-view>
+<div class="overflowable">
+  <mwl-calendar-week-view [viewDate]="calendarViewDate" [events]="(events$ | async) ?? []"></mwl-calendar-week-view>
+</div>

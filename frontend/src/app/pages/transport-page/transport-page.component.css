@@ -1,0 +1,9 @@
+:host {
+  display: block;
+  height: 100vh;
+}
+
+.overflowable {
+  overflow: auto;
+  height: 80%;
+}
