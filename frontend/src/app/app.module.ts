@@ -16,6 +16,18 @@ import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { OrderFormComponent } from './order-form/order-form.component';
+import { CreateOrderDialogComponent } from './create-order-dialog/create-order-dialog.component';
+import { JsonKeysToCamelCaseInterceptor } from './json-keys-to-camel-case.interceptor';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import {
+  NgxMatDatetimePickerModule,
+  NgxMatNativeDateModule,
+} from '@angular-material-components/datetime-picker';
+import { OrderListComponent } from './order-list/order-list.component';
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
   declarations: [
@@ -23,6 +35,9 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     LoginFormComponent,
     LoginPageComponent,
     MainPageComponent,
+    OrderFormComponent,
+    CreateOrderDialogComponent,
+    OrderListComponent,
   ],
   imports: [
     BrowserModule,
@@ -35,10 +50,20 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     MatInputModule,
     MatIconModule,
     MatCardModule,
+    MatDialogModule,
     MatProgressSpinnerModule,
+    MatDatepickerModule,
+    NgxMatDatetimePickerModule,
+    NgxMatNativeDateModule,
+    MatSelectModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: JsonKeysToCamelCaseInterceptor,
+      multi: true,
+    },
   ],
   bootstrap: [AppComponent],
 })

@@ -1,0 +1,6 @@
+<h1 mat-dialog-title>Создание заявки</h1>
+<app-order-form (orderChange)="onOrderUpdate($event)"></app-order-form>
+<div mat-dialog-actions>
+  <button mat-stroked-button (click)="close()">Отмена</button>
+  <button mat-flat-button color="primary" (click)="create()">Создать</button>
+</div>

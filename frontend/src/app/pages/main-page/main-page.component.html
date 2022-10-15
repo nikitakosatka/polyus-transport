@@ -1,1 +1,12 @@
-<p>main-page works!</p>
+<div>
+  <a [routerLink]="['/orders']">Заявки</a>
+</div>
+
+Ваши заявки
+<app-order-list></app-order-list>
+
+<div>
+  <button mat-flat-button (click)="openCreateOrderDialog()">Создать заявку</button>
+</div>
+
+<!--<button (click)="logOut()">Log out</button>-->
