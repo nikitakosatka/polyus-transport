@@ -6,6 +6,7 @@ from backend.pkg import models
 def create(item, db):
     transport = models.Transport(id=item.id,
                                  status=item.status,
+                                 plate_number=item.plate_number,
                                  transport_type_id=item.transport_type_id)
 
     db.add(transport)

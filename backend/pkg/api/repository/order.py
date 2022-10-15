@@ -24,7 +24,9 @@ def create(item, db):
     transport_request = schema.Transport(id=transport_obj.id,
                                          status=transport_obj.status,
                                          transport_type_id=transport_obj.transport_type_id,
-                                         busy_intervals=transport_obj.busy_intervals)
+                                         plate_number=transport_obj.plate_number,
+                                         busy_intervals=transport_obj.busy_intervals
+                                         )
     transport_request.busy_intervals.append([item.todo_at, item.finish_at])
     transport.update(transport_request.dict())
 

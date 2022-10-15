@@ -84,6 +84,7 @@ class Transport(Base):
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid4,
                 unique=True, nullable=False)
     status = Column(ENUM(TransportStatus), nullable=False)
+    plate_number = Column(String, nullable=False)
     transport_type_id = Column(UUID(as_uuid=True),
                                ForeignKey('transport_type.id'),
                                nullable=False)

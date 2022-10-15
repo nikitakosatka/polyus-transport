@@ -51,6 +51,7 @@ class Transport(BaseModel):
     id: UUID = Field(default_factory=uuid4)
     status: TransportStatus
     transport_type_id: UUID
+    plate_number: str
     busy_intervals: List[List[datetime]] = []
 
 
