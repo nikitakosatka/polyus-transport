@@ -44,6 +44,7 @@ export class OrderFormComponent implements OnInit {
   private makeOrder(): Order {
     const v = this.formGroup.value;
     return new Order(
+      null,
       v.title,
       v.body,
       new Date(),

@@ -41,4 +41,12 @@ export class OrdersService {
       )
       .pipe(map(() => {}));
   }
+
+  delete(order: Order) {
+    return this.httpClient
+      .delete(`${this.apiBaseUrl}/order/${order.id}`)
+      .subscribe(() => {
+        window.location.reload();
+      });
+  }
 }

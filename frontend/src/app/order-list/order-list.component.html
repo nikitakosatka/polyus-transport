@@ -1,9 +1,16 @@
 <mat-card *ngFor="let order of orders" class="card">
   <mat-card-title>{{order.title}}</mat-card-title>
-  {{order.body}}<br>
-  Создана: {{order.createdAt | date}}<br>
-  Заявка на время с {{order.todoAt | date}} по {{order.finishAt | date}}<br>
-  Транспорт: {{order.transportType.name}}<br>
-  Адрес: {{order.address}}<br>
-  Статус: {{order.humanReadableStatus}}
+  {{order.body}}<br><br>
+
+  <div class="muted">
+    Создана: {{order.createdAt | date}}<br>
+    Заявка на время с {{order.todoAt | date:'short'}} по {{order.finishAt | date:'short'}}<br>
+    Транспорт: {{order.transportType.name}}<br>
+    Адрес: {{order.address}}<br>
+    Статус: {{order.humanReadableStatus}}
+  </div>
+
+  <mat-card-actions align="end">
+    <button mat-button color="warn" (click)="deleteOrder(order)" title="Отозвать"><mat-icon>delete</mat-icon></button>
+  </mat-card-actions>
 </mat-card>

@@ -11,7 +11,7 @@
 <main>
   <div>
     <h1>Ваши заявки</h1>
-    <app-order-list [orders]="orders"></app-order-list>
+    <app-order-list [orders]="orders" (orderDelete)="onOrderDelete($event)"></app-order-list>
   </div>
 
   <div>

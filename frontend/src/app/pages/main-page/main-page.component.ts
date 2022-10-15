@@ -16,7 +16,7 @@ export class MainPageComponent implements OnInit {
   constructor(
     private readonly authService: AuthService,
     private readonly matDialog: MatDialog,
-    ordersService: OrdersService
+    private readonly ordersService: OrdersService
   ) {
     ordersService.getAll().subscribe(orders => {
       this.orders = orders;
@@ -32,5 +32,9 @@ export class MainPageComponent implements OnInit {
   logOut() {
     this.authService.logout();
     window.location.reload();
+  }
+
+  onOrderDelete(order: Order) {
+    return this.ordersService.delete(order);
   }
 }

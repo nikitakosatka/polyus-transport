@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Order } from '../models/order';
 
 @Component({
@@ -8,8 +8,16 @@ import { Order } from '../models/order';
 })
 export class OrderListComponent implements OnInit {
   @Input() orders: Order[] = [];
+  @Output() orderDelete = new EventEmitter<Order>();
 
   constructor() {}
 
   ngOnInit(): void {}
+
+  deleteOrder(order: Order) {
+    const ans = confirm(`Вы точно хотите отозвать заявку "${order.title}"?`);
+    if (ans) {
+      this.orderDelete.emit(order);
+    }
+  }
 }

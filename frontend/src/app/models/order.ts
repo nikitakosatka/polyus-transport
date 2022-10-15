@@ -2,6 +2,7 @@ import { TransportType } from './transport-type';
 
 export class Order {
   constructor(
+    public id: string | null,
     public title: string,
     public body: string,
     public createdAt: Date,
@@ -31,6 +32,7 @@ const orderStatusesHumanReadableNames = {
 
 export function serializeOrder(order: Order, customerId: string): NetworkOrder {
   return {
+    id: order.id ?? undefined,
     title: order.title,
     body: order.body,
     createdAt: order.createdAt.toISOString(),
@@ -55,6 +57,7 @@ export function deserializeOrder(
   }
 
   return new Order(
+    order.id!,
     order.title,
     order.body,
     new Date(order.createdAt),
@@ -74,6 +77,7 @@ export class TransportTypeNotFoundError extends Error {
 }
 
 export interface NetworkOrder {
+  id?: string;
   title: string;
   body: string;
   createdAt: string;
