@@ -1,8 +1,8 @@
 from backend.pkg.api.repository import order
 
 
-def create(order, db):
-    order.create(order, db)
+def create(item, db):
+    order.create(item, db)
 
 
 def get_all(db):
