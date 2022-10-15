@@ -1,6 +1,7 @@
 from fastapi import HTTPException, status
 
 from backend.pkg import models, schema
+from backend.pkg.api.repository.transport_type import get_available_transport
 
 
 def create(item, db):
@@ -15,6 +16,17 @@ def create(item, db):
                          rate=item.rate,
                          status=item.status,
                          address=item.address)
+
+    transport = get_available_transport(item.transport_type_id,
+                                        item.todo_at, item.finish_at, db)
+    transport_obj = transport.first()
+
+    transport_request = schema.Transport(id=transport_obj.id,
+                                         status=transport_obj.status,
+                                         transport_type_id=transport_obj.transport_type_id,
+                                         busy_intervals=transport_obj.busy_intervals)
+    transport_request.busy_intervals.append([item.todo_at, item.finish_at])
+    transport.update(transport_request.dict())
 
     db.add(order)
     db.commit()

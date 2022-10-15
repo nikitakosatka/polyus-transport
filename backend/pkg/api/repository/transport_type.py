@@ -56,4 +56,4 @@ def get_available_transport(transport_type_id, date_start, date_end, db):
         models.Transport.transport_type_id == transport_type_id and all(
             not (interval[0] <= date_start <= interval[1]
                  or interval[0] <= date_end <= interval[1])
-            for interval in models.Transport.busy_intervals)).first()
+            for interval in models.Transport.busy_intervals))

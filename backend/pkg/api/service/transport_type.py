@@ -23,7 +23,7 @@ def remove(id, db):
 
 def is_available_transport(transport_type_id, date_start, date_end, db):
     if transport_type.get_available_transport(transport_type_id, date_start,
-                                              date_end, db):
+                                              date_end, db).first():
         return True
 
     return False
