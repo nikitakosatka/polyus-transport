@@ -11,6 +11,7 @@ def create(request: schema.Driver, db: Session):
         name=request.name,
         status=request.status,
         email=request.email,
+        transport_type_id=request.transport_type_id,
         password=Hash.bcrypt(request.password))
     db.add(new_user)
     db.commit()

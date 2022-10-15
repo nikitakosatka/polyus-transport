@@ -76,7 +76,7 @@ class Driver(BaseModel):
     status: DriverStatus
     email: str
     password: str
-    transport_type: TransportType
+    transport_type_id: UUID
 
 
 class Dispatcher(BaseModel):
