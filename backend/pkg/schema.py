@@ -31,6 +31,7 @@ class Order(BaseModel):
     title: str
     body: str
     created_at: datetime
+    customer_id: UUID
     todo_at: datetime
     finish_at: datetime
     transport_type_id: UUID
