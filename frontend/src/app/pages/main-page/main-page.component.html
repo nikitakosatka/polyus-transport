@@ -3,10 +3,10 @@
 </div>
 
 Ваши заявки
-<app-order-list></app-order-list>
+<app-order-list [orders]="orders"></app-order-list>
 
 <div>
-  <button mat-flat-button (click)="openCreateOrderDialog()">Создать заявку</button>
+  <button mat-flat-button color="primary" (click)="openCreateOrderDialog()">Создать заявку</button>
 </div>
 
-<!--<button (click)="logOut()">Log out</button>-->
+<button (click)="logOut()">Log out</button>

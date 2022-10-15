@@ -10,10 +10,12 @@ export interface Credentials {
 }
 
 interface LoginResponse {
-  access_token: string;
-  token_type: string;
+  accessToken: string;
+  tokenType: string;
+  id: string;
 }
 
+const USER_ID_STORAGE_KEY = 'user-id';
 const AUTH_TOKEN_STORAGE_KEY = 'auth-token';
 
 @Injectable({ providedIn: 'root' })
@@ -32,11 +34,12 @@ export class AuthService {
       .post<LoginResponse>(`${this.apiBaseUrl}/auth/customer/login`, formData)
       .pipe(
         catchError(err => this.handleLoginError(err as HttpErrorResponse)),
-        map(response => {
+        map((response: LoginResponse | null) => {
           if (response) {
+            this.storage.setItem(USER_ID_STORAGE_KEY, response.id);
             this.storage.setItem(
               AUTH_TOKEN_STORAGE_KEY,
-              response.token_type + ' ' + response.access_token
+              response.tokenType + ' ' + response.accessToken
             );
           }
           return Boolean(response);
@@ -54,6 +57,10 @@ export class AuthService {
 
   get token() {
     return this.storage.getItem(AUTH_TOKEN_STORAGE_KEY);
+  }
+
+  get userId(): string | null {
+    return this.storage.getItem(USER_ID_STORAGE_KEY);
   }
 
   get isLoggedIn() {

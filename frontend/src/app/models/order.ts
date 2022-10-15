@@ -12,7 +12,7 @@ export class Order {
   ) {}
 }
 
-export function serializeOrder(order: Order): NetworkOrder {
+export function serializeOrder(order: Order, customerId: string): NetworkOrder {
   return {
     title: order.title,
     body: order.body,
@@ -21,6 +21,7 @@ export function serializeOrder(order: Order): NetworkOrder {
     finishAt: order.finishAt.toISOString(),
     transportTypeId: order.transportType.id,
     address: order.address,
+    customerId,
   };
 }
 
@@ -61,4 +62,5 @@ export interface NetworkOrder {
   finishAt: string;
   transportTypeId: string;
   address: string;
+  customerId: string;
 }

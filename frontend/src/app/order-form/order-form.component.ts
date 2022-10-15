@@ -49,7 +49,7 @@ export class OrderFormComponent implements OnInit {
       new Date(),
       v.todoAt,
       v.finishAt,
-      v.transportTypeId,
+      this.selectedTransportType!,
       v.address
     );
   }

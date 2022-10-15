@@ -52,7 +52,12 @@ function toSnake(s: string) {
 }
 
 function transformKeys(o: any, transformer: (s: string) => string): any {
-  if (o === Object(o) && !Array.isArray(o) && typeof o !== 'function') {
+  if (
+    o === Object(o) &&
+    !(o instanceof FormData) &&
+    !Array.isArray(o) &&
+    typeof o !== 'function'
+  ) {
     const n = {} as { [key: string]: any };
     Object.keys(o).forEach(k => {
       n[transformer(k)] = transformKeys(o[k], transformer);

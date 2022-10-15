@@ -1,8 +1,8 @@
-<mat-card *ngFor="let order of orders">
+<mat-card *ngFor="let order of orders" class="card">
   <mat-card-title>{{order.title}}</mat-card-title>
-  {{order.body}}
-  Создана: {{order.createdAt | date}}
-  Заявка на время с {{order.todoAt | date}} по {{order.finishAt | date}}
-  Транспорт: {{order.transportType.name}}
+  {{order.body}}<br>
+  Создана: {{order.createdAt | date}}<br>
+  Заявка на время с {{order.todoAt | date}} по {{order.finishAt | date}}<br>
+  Транспорт: {{order.transportType.name}}<br>
   Адрес: {{order.address}}
 </mat-card>
