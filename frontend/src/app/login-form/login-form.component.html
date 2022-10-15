@@ -1,0 +1,40 @@
+<mat-card>
+  <mat-card-title>Вход</mat-card-title>
+
+  <form [formGroup]="formGroup" class="form">
+    <mat-form-field appearance="outline">
+      <mat-label>Логин</mat-label>
+      <input matInput type="text" formControlName="username">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Пароль</mat-label>
+      <input matInput [type]="passwordHidden ? 'password' : 'text'">
+      <button mat-icon-button matSuffix (click)="passwordHidden = !passwordHidden">
+        <mat-icon>{{passwordHidden ? 'visibility_off' : 'visibility'}}</mat-icon>
+      </button>
+    </mat-form-field>
+  </form>
+
+  <mat-card class="alert mat-elevation-z0" *ngIf="loginFailed">
+    <mat-icon>error</mat-icon>
+    Неправильный логин или пароль.
+  </mat-card>
+
+  <div>
+    <button
+      mat-flat-button
+      class="full-width"
+      color="primary"
+      (click)="tryLogin()"
+      [disabled]="loginInProgress"
+    >
+      <div class="button-insides">
+        <mat-spinner diameter="20" *ngIf="loginInProgress"></mat-spinner>
+        Войти
+      </div>
+    </button>
+  </div>
+
+</mat-card>
+
