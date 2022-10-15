@@ -24,3 +24,7 @@ async def get(id: UUID, db: Session = Depends(get_db)):
 async def update(id: UUID, request: schema.Driver,
                  db: Session = Depends(get_db)):
     return driver.update(id, request, db)
+
+@router.get('/all')
+async def get_all(db: Session = Depends(get_db)):
+    return driver.get_all(db)

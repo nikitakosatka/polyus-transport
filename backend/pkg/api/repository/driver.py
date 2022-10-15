@@ -37,3 +37,7 @@ def update(id, request, db):
     driver.update(request)
     db.commit()
     return 'updated'
+
+
+def get_all(db):
+    return db.query(models.Driver).all()

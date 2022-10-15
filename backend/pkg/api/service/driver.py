@@ -11,3 +11,7 @@ def get(id, db):
 
 def update(id, request, db):
     return driver.update(id, request, db)
+
+
+def get_all(db):
+    return driver.get_all(db)
