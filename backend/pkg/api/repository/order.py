@@ -59,3 +59,7 @@ def get_by_status(status, transport_type_id, db):
     return db.query(models.Order).filter(
         models.Order.status == schema.OrderStatus[status]
         and models.Order.transport_type_id == transport_type_id).all()
+
+
+def get_by_driver_id(id, db):
+    return db.query(models.Order).filter(models.Order.driver_id == id).all()
