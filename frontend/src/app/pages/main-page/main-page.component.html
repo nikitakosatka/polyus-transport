@@ -1,21 +1,9 @@
-<aside class="sidebar">
-  <a [routerLink]="['/orders']">Заявки</a>
-  <button mat-button (click)="logOut()">
-    <div class="button-insides">
-      <mat-icon>logout</mat-icon>
-      Выйти
-    </div>
-  </button>
-</aside>
+<div>
+  <h1>Ваши заявки</h1>
+  <app-order-list [orders]="orders" (orderDelete)="onOrderDelete($event)"></app-order-list>
+</div>
 
-<main>
-  <div>
-    <h1>Ваши заявки</h1>
-    <app-order-list [orders]="orders" (orderDelete)="onOrderDelete($event)"></app-order-list>
-  </div>
-
-  <div>
-    <h1>&nbsp;</h1>
-    <button mat-flat-button color="primary" (click)="openCreateOrderDialog()">Создать заявку</button>
-  </div>
-</main>
+<div>
+  <h1>&nbsp;</h1>
+  <button mat-flat-button color="primary" (click)="openCreateOrderDialog()">Создать заявку</button>
+</div>

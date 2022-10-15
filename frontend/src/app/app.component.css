@@ -1,0 +1,23 @@
+:host {
+  display: flex;
+  height: 100vh;
+}
+
+.sidebar {
+  border-right: 1px #e0dcdc solid;
+  box-shadow: 3px 0 6px #00000014;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+main {
+  padding: 1rem;
+}
+
+.button-insides {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+}

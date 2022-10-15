@@ -1,1 +1,13 @@
-<router-outlet></router-outlet>
+<aside class="sidebar" *ngIf="sidebarVisible$ | async">
+  <a [routerLink]="['/orders']">Заявки</a>
+  <button mat-button (click)="logOut()">
+    <div class="button-insides">
+      <mat-icon>logout</mat-icon>
+      Выйти
+    </div>
+  </button>
+</aside>
+
+<main>
+  <router-outlet></router-outlet>
+</main>

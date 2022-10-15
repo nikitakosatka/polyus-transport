@@ -29,11 +29,6 @@ export class MainPageComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  logOut() {
-    this.authService.logout();
-    window.location.reload();
-  }
-
   onOrderDelete(order: Order) {
     return this.ordersService.delete(order);
   }
