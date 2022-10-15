@@ -54,6 +54,7 @@ def remove(id, db):
     return 'removed'
 
 
-def get_by_status(status, db):
+def get_by_status(status, transport_type_id, db):
     return db.query(models.Order).filter(
-        models.Order.status == schema.OrderStatus[status]).all()
+        models.Order.status == schema.OrderStatus[status]
+        and models.Order.transport_type_id == transport_type_id).all()
