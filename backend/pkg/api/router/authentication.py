@@ -22,7 +22,8 @@ def login(request: OAuth2PasswordRequestForm = Depends(),
 
     access_token = token.create_access_token(data={"sub": customer.email})
 
-    return {"access_token": access_token, "token_type": "bearer"}
+    return {"access_token": access_token, "token_type": "bearer",
+            "id": customer.id}
 
 
 @router.post('/driver/login')
@@ -39,7 +40,8 @@ def login(request: OAuth2PasswordRequestForm = Depends(),
 
     access_token = token.create_access_token(data={"sub": driver.email})
 
-    return {"access_token": access_token, "token_type": "bearer"}
+    return {"access_token": access_token, "token_type": "bearer",
+            "id": driver.id}
 
 
 @router.post('/dispatcher/login')
@@ -56,4 +58,5 @@ def login(request: OAuth2PasswordRequestForm = Depends(),
 
     access_token = token.create_access_token(data={"sub": dispatcher.email})
 
-    return {"access_token": access_token, "token_type": "bearer"}
+    return {"access_token": access_token, "token_type": "bearer",
+            "id": dispatcher.id}
