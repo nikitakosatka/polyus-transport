@@ -5,7 +5,8 @@ export class Transport {
     public id: string,
     public type: TransportType,
     public status: TransportStatus,
-    public busyIntervals: BusyInterval[]
+    public busyIntervals: BusyInterval[],
+    public plateNumber: string
   ) {}
 }
 
@@ -42,27 +43,28 @@ export interface NetworkTransport {
   transportTypeId: string;
   status: TransportStatus;
   busyIntervals: NetworkBusyInterval[];
+  plateNumber: string;
 }
 
-export function serializeTransport(transportType: Transport): NetworkTransport {
+export function serializeTransport(t: Transport): NetworkTransport {
   return {
-    id: transportType.id,
-    transportTypeId: transportType.type.id,
-    status: transportType.status,
-    busyIntervals: transportType.busyIntervals.map(i =>
-      serializeBusyInterval(i)
-    ),
+    id: t.id,
+    transportTypeId: t.type.id,
+    status: t.status,
+    busyIntervals: t.busyIntervals.map(i => serializeBusyInterval(i)),
+    plateNumber: t.plateNumber,
   };
 }
 
 export function deserializeTransport(
-  networkTransport: NetworkTransport,
+  nt: NetworkTransport,
   transportTypes: TransportType[]
 ): Transport {
   return new Transport(
-    networkTransport.id,
-    transportTypes.find(t => t.id === networkTransport.transportTypeId)!,
-    networkTransport.status,
-    networkTransport.busyIntervals.map(i => deserializeBusyInterval(i))
+    nt.id,
+    transportTypes.find(t => t.id === nt.transportTypeId)!,
+    nt.status,
+    nt.busyIntervals.map(i => deserializeBusyInterval(i)),
+    nt.plateNumber
   );
 }

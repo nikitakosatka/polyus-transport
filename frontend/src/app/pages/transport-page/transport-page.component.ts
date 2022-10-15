@@ -37,10 +37,10 @@ export class TransportPageComponent implements OnInit {
               ({
                 start: bi.from,
                 end: bi.to,
-                title: t.id,
+                title: t.plateNumber,
                 color: {
                   primary: 'green',
-                  secondary: 'blue',
+                  secondary: 'lightblue',
                 },
               } as CalendarEvent)
           )
