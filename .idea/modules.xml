@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/PolusDriver.iml" filepath="$PROJECT_DIR$/.idea/modules/PolusDriver.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/PolusDriver.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/PolusDriver.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/PolusDriver.app.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/PolusDriver.app.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/PolusDriver.app.main.iml" filepath="$PROJECT_DIR$/.idea/modules/app/PolusDriver.app.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/PolusDriver.app.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/PolusDriver.app.unitTest.iml" />
+    </modules>
+  </component>
+</project>
