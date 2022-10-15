@@ -12,7 +12,7 @@ router = APIRouter(prefix='/api/transport_type', tags=['Transport Type'])
 
 
 @router.post('/create')
-async def create(request: schema.Order, db: Session = Depends(get_db)):
+async def create(request: schema.TransportType, db: Session = Depends(get_db)):
     transport_type.create(request, db)
 
 
