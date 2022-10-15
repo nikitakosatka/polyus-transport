@@ -29,6 +29,7 @@ import { OrderListComponent } from './order-list/order-list.component';
 import { MatSelectModule } from '@angular/material/select';
 import localeRu from '@angular/common/locales/ru';
 import { registerLocaleData } from '@angular/common';
+import { AngularYandexMapsModule } from 'angular8-yandex-maps';
 
 registerLocaleData(localeRu);
 
@@ -59,6 +60,7 @@ registerLocaleData(localeRu);
     NgxMatDatetimePickerModule,
     NgxMatNativeDateModule,
     MatSelectModule,
+    AngularYandexMapsModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },

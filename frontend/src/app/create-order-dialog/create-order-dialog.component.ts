@@ -22,7 +22,9 @@ export class CreateOrderDialogComponent implements OnInit {
     if (!this.order) {
       return;
     }
-    this.ordersService.create(this.order).subscribe();
+    this.ordersService.create(this.order).subscribe(() => {
+      window.location.reload();
+    });
   }
 
   close() {

@@ -3,3 +3,7 @@ form {
   flex-direction: column;
   width: 30rem;
 }
+
+.map {
+  height: 20rem;
+}

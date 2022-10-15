@@ -1,15 +1,26 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  EventEmitter,
+  Output,
+  ViewChild,
+} from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Order } from '../models/order';
 import { TransportTypesService } from '../transport-types.service';
 import { TransportType } from '../models/transport-type';
+import { YaMapComponent } from 'angular8-yandex-maps';
 
 @Component({
   selector: 'app-order-form',
   templateUrl: './order-form.component.html',
   styleUrls: ['./order-form.component.css'],
 })
-export class OrderFormComponent implements OnInit {
+export class OrderFormComponent implements AfterViewInit {
+  @ViewChild(YaMapComponent) readonly mapRef?: YaMapComponent;
+
+  public selectedAddressCoords?: [number, number];
+
   @Output() readonly orderChange = new EventEmitter<Order>();
 
   readonly formGroup = new FormGroup({
@@ -41,8 +52,15 @@ export class OrderFormComponent implements OnInit {
     });
   }
 
+  ngAfterViewInit() {
+    this.mapRef?.map$.subscribe(map => {
+      map?.controls.remove('trafficControl');
+    });
+  }
+
   private makeOrder(): Order {
     const v = this.formGroup.value;
+    const coords = this.selectedAddressCoords?.join(';')!;
     return new Order(
       null,
       v.title,
@@ -51,9 +69,11 @@ export class OrderFormComponent implements OnInit {
       v.todoAt,
       v.finishAt,
       this.selectedTransportType!,
-      v.address
+      coords
     );
   }
 
-  ngOnInit(): void {}
+  onMapClick(event: ymaps.Event) {
+    this.selectedAddressCoords = event.get('coords');
+  }
 }
