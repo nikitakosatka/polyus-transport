@@ -51,7 +51,7 @@ def update(id, request, db):
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
                             detail=f"Order with id {id} not found")
 
-    order.update(request)
+    order.update(request.dict())
     db.commit()
     return 'updated'
 

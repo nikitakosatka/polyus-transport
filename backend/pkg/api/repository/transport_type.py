@@ -32,7 +32,7 @@ def update(id, request, db):
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
                             detail=f"Transport Type with id {id} not found")
 
-    transport_type.update(request)
+    transport_type.update(request.dict())
     db.commit()
     return 'updated'
 
