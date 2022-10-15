@@ -11,7 +11,7 @@ router = APIRouter(prefix='/api/transport', tags=['Transport'])
 
 
 @router.post('/create')
-async def create(request: schema.Order, db: Session = Depends(get_db)):
+async def create(request: schema.Transport, db: Session = Depends(get_db)):
     transport.create(request, db)
 
 
@@ -26,7 +26,7 @@ async def get(id: UUID, db: Session = Depends(get_db)):
 
 
 @router.put('/{id}')
-async def update(id: UUID, request: schema.Order,
+async def update(id: UUID, request: schema.Transport,
                  db: Session = Depends(get_db)):
     return transport.update(id, request, db)
 
