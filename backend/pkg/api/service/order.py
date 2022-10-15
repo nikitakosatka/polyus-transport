@@ -21,5 +21,5 @@ def remove(id, db):
     return order.remove(id, db)
 
 
-def get_by_status(status, db):
-    return order.get_by_status(status, db)
+def get_by_status(status, transport_type_id, db):
+    return order.get_by_status(status, transport_type_id, db)

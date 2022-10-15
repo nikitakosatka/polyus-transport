@@ -38,5 +38,6 @@ async def remove(id: UUID, db: Session = Depends(get_db)):
 
 @router.get('/by_status')
 async def get_by_status(status: schema.OrderStatus,
+                        transport_type_id: UUID,
                         db: Session = Depends(get_db)):
-    return order.get_by_status(status, db)
+    return order.get_by_status(status, transport_type_id, db)
