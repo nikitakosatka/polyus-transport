@@ -17,7 +17,7 @@ async def create(request: schema.Driver, db: Session = Depends(get_db)):
 
 @router.get('/{id}')
 async def get(id: UUID, db: Session = Depends(get_db)):
-    driver.get(id, db)
+    return driver.get(id, db)
 
 
 @router.put('/{id}')

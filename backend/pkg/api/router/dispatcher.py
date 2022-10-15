@@ -17,4 +17,4 @@ async def create(request: schema.Dispatcher, db: Session = Depends(get_db)):
 
 @router.get('/{id}')
 async def get(id: UUID, db: Session = Depends(get_db)):
-    dispatcher.get(id, db)
+    return dispatcher.get(id, db)
