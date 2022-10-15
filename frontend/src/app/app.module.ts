@@ -30,6 +30,8 @@ import { MatSelectModule } from '@angular/material/select';
 import localeRu from '@angular/common/locales/ru';
 import { registerLocaleData } from '@angular/common';
 import { AngularYandexMapsModule } from 'angular8-yandex-maps';
+import { CalendarModule, DateAdapter } from 'angular-calendar';
+import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 
 registerLocaleData(localeRu);
 
@@ -61,6 +63,10 @@ registerLocaleData(localeRu);
     NgxMatNativeDateModule,
     MatSelectModule,
     AngularYandexMapsModule,
+    CalendarModule.forRoot({
+      provide: DateAdapter,
+      useFactory: adapterFactory,
+    }),
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },

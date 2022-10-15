@@ -7,7 +7,8 @@
     Заявка на время с {{order.todoAt | date:'short'}} по {{order.finishAt | date:'short'}}<br>
     Транспорт: {{order.transportType.name}}<br>
     Адрес: {{order.address}}<br>
-    Статус: {{order.humanReadableStatus}}
+    Статус: {{order.humanReadableStatus}}<br>
+    Приоритет: {{order.humanReadableUrgency}}
   </div>
 
   <mat-card-actions align="end">

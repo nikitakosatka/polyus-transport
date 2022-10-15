@@ -27,6 +27,14 @@
       <mat-option *ngFor="let type of transportTypes" [value]="type.id">{{type.name}}</mat-option>
     </mat-select>
   </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Приоритет</mat-label>
+    <mat-select formControlName="urgency">
+      <mat-option value="LOW">Низкий</mat-option>
+      <mat-option value="NORMAL">Обычный</mat-option>
+      <mat-option value="HIGH">Высокий</mat-option>
+    </mat-select>
+  </mat-form-field>
   <div class="map">
     <ya-map [center]="[55.751952, 37.600739]" [zoom]="12" (yaclick)="onMapClick($event.event)">
       <ya-placemark [geometry]="selectedAddressCoords" *ngIf="selectedAddressCoords"></ya-placemark>

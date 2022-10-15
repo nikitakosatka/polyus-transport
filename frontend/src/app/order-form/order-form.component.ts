@@ -6,7 +6,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { Order } from '../models/order';
+import { Order, OrderUrgency } from '../models/order';
 import { TransportTypesService } from '../transport-types.service';
 import { TransportType } from '../models/transport-type';
 import { YaMapComponent } from 'angular8-yandex-maps';
@@ -30,6 +30,7 @@ export class OrderFormComponent implements AfterViewInit {
     finishAt: new FormControl(),
     transportTypeId: new FormControl(),
     address: new FormControl(),
+    urgency: new FormControl(OrderUrgency.Normal),
   });
 
   get selectedTransportType(): TransportType | null {
@@ -69,11 +70,13 @@ export class OrderFormComponent implements AfterViewInit {
       v.todoAt,
       v.finishAt,
       this.selectedTransportType!,
-      coords
+      coords,
+      v.urgency!
     );
   }
 
   onMapClick(event: ymaps.Event) {
     this.selectedAddressCoords = event.get('coords');
+    this.orderChange.emit(this.makeOrder());
   }
 }

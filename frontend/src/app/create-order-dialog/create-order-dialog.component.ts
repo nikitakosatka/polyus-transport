@@ -8,15 +8,13 @@ import { MatDialogRef } from '@angular/material/dialog';
   templateUrl: './create-order-dialog.component.html',
   styleUrls: ['./create-order-dialog.component.css'],
 })
-export class CreateOrderDialogComponent implements OnInit {
+export class CreateOrderDialogComponent {
   private order?: Order;
 
   constructor(
     private readonly ordersService: OrdersService,
     private readonly dialogRef: MatDialogRef<CreateOrderDialogComponent>
   ) {}
-
-  ngOnInit(): void {}
 
   create() {
     if (!this.order) {
