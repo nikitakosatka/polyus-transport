@@ -25,6 +25,9 @@ class Driver(Base):
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid4,
                 unique=True, nullable=False)
     name = Column(String, nullable=False)
+    transport_type_id = Column(UUID(as_uuid=True),
+                               ForeignKey('transport_type.id'),
+                               nullable=False)
     status = Column(ENUM(DriverStatus), nullable=False,
                     default=DriverStatus['available'])
     orders = relationship('Order')

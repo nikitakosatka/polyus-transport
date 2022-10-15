@@ -3,7 +3,7 @@ from enum import unique, Enum
 from typing import Optional, List
 from uuid import UUID, uuid4
 
-from pydantic import BaseModel, validator, Field
+from pydantic import BaseModel, Field
 
 
 @unique
@@ -38,6 +38,19 @@ class Order(BaseModel):
     address: str
 
 
+class Transport(BaseModel):
+    id: UUID = Field(default_factory=uuid4)
+    status: TransportStatus
+    transport_type_id: UUID
+    busy_intervals: List[List[datetime]] = []
+
+
+class TransportType(BaseModel):
+    id: UUID = Field(default_factory=uuid4)
+    name: str
+    transports: List[Transport] = []
+
+
 class Token(BaseModel):
     access_token: str
     token_type: str
@@ -48,8 +61,18 @@ class TokenData(BaseModel):
 
 
 class Customer(BaseModel):
-    id: UUID
+    id: UUID = Field(default_factory=uuid4)
     name: str
     orders: List[Order] = []
     email: str
     password: str
+
+
+class Driver(BaseModel):
+    id: UUID = Field(default_factory=uuid4)
+    name: str
+    orders: List[Order] = []
+    status: DriverStatus
+    email: str
+    password: str
+    transport_type: TransportType
