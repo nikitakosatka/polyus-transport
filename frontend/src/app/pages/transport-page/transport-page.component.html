@@ -1,0 +1,16 @@
+<mat-form-field appearance="outline">
+  <mat-label>Вид транспорта</mat-label>
+  <mat-select [ngModel]="selectedTransportTypeId$ | async" (ngModelChange)="selectedTransportTypeId$.next($event)">
+    <mat-option *ngFor="let type of (transportTypes$ | async); index as i" [value]="type.id">{{type.name}}</mat-option>
+  </mat-select>
+</mat-form-field>
+<br><br>
+<mat-form-field appearance="outline">
+  <mat-label>Дата</mat-label>
+  <input matInput [ngxMatDatetimePicker]="finishAtPicker" [(ngModel)]="calendarViewDate">
+  <mat-hint>ДД.ММ.ГГГГ</mat-hint>
+  <mat-datepicker-toggle matSuffix [for]="$any(finishAtPicker)"></mat-datepicker-toggle>
+  <ngx-mat-datetime-picker #finishAtPicker></ngx-mat-datetime-picker>
+</mat-form-field>
+<br><br>
+<mwl-calendar-week-view [viewDate]="calendarViewDate" [events]="(events$ | async) ?? []"></mwl-calendar-week-view>

@@ -5,7 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoginFormComponent } from './login-form/login-form.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoginPageComponent } from './pages/login-page/login-page.component';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AuthInterceptor } from './auth.interceptor';
@@ -32,7 +32,7 @@ import { registerLocaleData } from '@angular/common';
 import { AngularYandexMapsModule } from 'angular8-yandex-maps';
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
-import { TransportPageComponent } from './transport-page/transport-page.component';
+import { TransportPageComponent } from './pages/transport-page/transport-page.component';
 
 registerLocaleData(localeRu);
 
@@ -69,6 +69,7 @@ registerLocaleData(localeRu);
       provide: DateAdapter,
       useFactory: adapterFactory,
     }),
+    FormsModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },

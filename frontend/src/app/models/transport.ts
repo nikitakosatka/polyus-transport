@@ -1,6 +1,9 @@
+import { TransportType } from './transport-type';
+
 export class Transport {
   constructor(
     public id: string,
+    public type: TransportType,
     public status: TransportStatus,
     public busyIntervals: BusyInterval[]
   ) {}
@@ -36,6 +39,7 @@ function deserializeBusyInterval(
 
 export interface NetworkTransport {
   id: string;
+  transportTypeId: string;
   status: TransportStatus;
   busyIntervals: NetworkBusyInterval[];
 }
@@ -43,6 +47,7 @@ export interface NetworkTransport {
 export function serializeTransport(transportType: Transport): NetworkTransport {
   return {
     id: transportType.id,
+    transportTypeId: transportType.type.id,
     status: transportType.status,
     busyIntervals: transportType.busyIntervals.map(i =>
       serializeBusyInterval(i)
@@ -51,10 +56,12 @@ export function serializeTransport(transportType: Transport): NetworkTransport {
 }
 
 export function deserializeTransport(
-  networkTransport: NetworkTransport
+  networkTransport: NetworkTransport,
+  transportTypes: TransportType[]
 ): Transport {
   return new Transport(
     networkTransport.id,
+    transportTypes.find(t => t.id === networkTransport.transportTypeId)!,
     networkTransport.status,
     networkTransport.busyIntervals.map(i => deserializeBusyInterval(i))
   );

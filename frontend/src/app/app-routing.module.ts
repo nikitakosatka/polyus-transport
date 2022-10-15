@@ -4,7 +4,7 @@ import { LoginPageComponent } from './pages/login-page/login-page.component';
 import { MainPageComponent } from './pages/main-page/main-page.component';
 import { IsAuthedGuard } from './is-authed.guard';
 import { IsNotAuthedGuard } from './is-not-authed.guard';
-import { TransportPageComponent } from './transport-page/transport-page.component';
+import { TransportPageComponent } from './pages/transport-page/transport-page.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'orders', pathMatch: 'full' },
