@@ -34,8 +34,8 @@ def update(id, request, db):
     if not driver.first():
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
                             detail=f"Driver with id {id} not found")
-
-    driver.update(request)
+    request.password = Hash.bcrypt(request.password)
+    driver.update(request.dict())
     db.commit()
     return 'updated'
 
