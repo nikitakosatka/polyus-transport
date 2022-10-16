@@ -14,6 +14,7 @@ export class AppComponent {
     filter((val): val is NavigationEnd => val instanceof NavigationEnd),
     map((val: NavigationEnd) => val.url !== '/login')
   );
+  readonly userRole$ = this.authService.role$;
 
   constructor(
     private readonly authService: AuthService,

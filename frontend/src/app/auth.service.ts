@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { catchError, map, Observable, of } from 'rxjs';
+import { BehaviorSubject, catchError, map, Observable, of } from 'rxjs';
 import { LocalStorageService } from './local-storage.service';
 import { API_BASE_URL } from './api-config.module';
 
@@ -15,8 +15,14 @@ interface LoginResponse {
   id: string;
 }
 
+export enum UserRole {
+  Customer = 'customer',
+  Dispatcher = 'dispatcher',
+}
+
 const USER_ID_STORAGE_KEY = 'user-id';
 const AUTH_TOKEN_STORAGE_KEY = 'auth-token';
+const ROLE_STORAGE_KEY = 'role';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -26,12 +32,12 @@ export class AuthService {
     private storage: LocalStorageService
   ) {}
 
-  login(creds: Credentials): Observable<boolean> {
+  login(creds: Credentials, role: UserRole): Observable<boolean> {
     const formData = new FormData();
     formData.set('username', creds.username);
     formData.set('password', creds.password);
     return this.http
-      .post<LoginResponse>(`${this.apiBaseUrl}/auth/customer/login`, formData)
+      .post<LoginResponse>(`${this.apiBaseUrl}/auth/${role}/login`, formData)
       .pipe(
         catchError(err => this.handleLoginError(err as HttpErrorResponse)),
         map((response: LoginResponse | null) => {
@@ -41,6 +47,8 @@ export class AuthService {
               AUTH_TOKEN_STORAGE_KEY,
               response.tokenType + ' ' + response.accessToken
             );
+            this.storage.setItem(ROLE_STORAGE_KEY, role);
+            this.role$.next(role);
           }
           return Boolean(response);
         })
@@ -53,6 +61,9 @@ export class AuthService {
 
   logout() {
     this.storage.removeItem(AUTH_TOKEN_STORAGE_KEY);
+    this.storage.removeItem(USER_ID_STORAGE_KEY);
+    this.storage.removeItem(ROLE_STORAGE_KEY);
+    this.role$.next(null);
   }
 
   get token() {
@@ -62,6 +73,10 @@ export class AuthService {
   get userId(): string | null {
     return this.storage.getItem(USER_ID_STORAGE_KEY);
   }
+
+  readonly role$ = new BehaviorSubject<UserRole | null>(
+    this.storage.getItem(ROLE_STORAGE_KEY) as UserRole
+  );
 
   get isLoggedIn() {
     return Boolean(this.token);

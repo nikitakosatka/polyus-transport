@@ -13,12 +13,17 @@
       </div>
     </a>
   </div>
-  <button mat-button (click)="logOut()">
-    <div class="button-insides">
-      <mat-icon>logout</mat-icon>
-      Выйти
-    </div>
-  </button>
+
+  <div>
+    Роль: {{userRole$ | async}}<br>
+    <button mat-button (click)="logOut()">
+      <div class="button-insides">
+        <mat-icon>logout</mat-icon>
+        Выйти
+      </div>
+    </button>
+  </div>
+
 </aside>
 
 <main>

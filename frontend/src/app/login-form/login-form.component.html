@@ -16,6 +16,14 @@
         <mat-icon>{{passwordHidden ? 'visibility_off' : 'visibility'}}</mat-icon>
       </button>
     </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Роль</mat-label>
+      <mat-select formControlName="role">
+        <mat-option value="customer">Клиент</mat-option>
+        <mat-option value="dispatcher">Диспетчер</mat-option>
+      </mat-select>
+    </mat-form-field>
   </form>
 
   <mat-card class="alert mat-elevation-z0" *ngIf="loginFailed">
@@ -37,6 +45,5 @@
       </div>
     </button>
   </div>
-
 </mat-card>
 

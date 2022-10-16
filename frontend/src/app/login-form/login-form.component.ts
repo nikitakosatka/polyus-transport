@@ -1,23 +1,18 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  EventEmitter,
-  Output,
-} from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { AuthService, Credentials } from '../auth.service';
+import { AuthService, Credentials, UserRole } from '../auth.service';
 
 @Component({
   selector: 'app-login-form',
   templateUrl: './login-form.component.html',
   styleUrls: ['./login-form.component.css'],
-  // changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoginFormComponent {
   @Output() readonly login = new EventEmitter<any>();
   readonly formGroup = new FormGroup({
     username: new FormControl(),
     password: new FormControl(),
+    role: new FormControl(UserRole.Customer),
   });
   passwordHidden = true;
   loginInProgress = false;
@@ -31,7 +26,7 @@ export class LoginFormComponent {
     this.loginInProgress = true;
     this.formGroup.disable();
     this.authService
-      .login(this.formGroup.value as Credentials)
+      .login(this.formGroup.value as Credentials, this.formGroup.value.role!)
       .subscribe(success => {
         this.loginInProgress = false;
         this.formGroup.enable();
