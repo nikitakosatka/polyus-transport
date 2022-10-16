@@ -15,9 +15,9 @@ class TransportStatus(str, Enum):
 
 @unique
 class OrderStatus(str, Enum):
-    todo = 'TODO'
-    in_process = 'IN_PROCESS'
-    done = 'DONE'
+    todo = 'todo'
+    in_process = 'in_process'
+    done = 'done'
 
 
 @unique
