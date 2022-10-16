@@ -11,6 +11,7 @@ export class Order {
     public transportType: TransportType,
     public address: string,
     public urgency: OrderUrgency,
+    public customerId: string,
     public status: OrderStatus = OrderStatus.Todo
   ) {}
 
@@ -84,6 +85,7 @@ export function deserializeOrder(
     transportType,
     order.address,
     order.rate,
+    order.customerId,
     order.status
   );
 }

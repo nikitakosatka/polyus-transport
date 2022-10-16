@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AuthService } from './auth.service';
+import { AuthService, UserRole } from './auth.service';
 import { NavigationEnd, Router } from '@angular/router';
 import { filter, map } from 'rxjs';
 
@@ -14,12 +14,16 @@ export class AppComponent {
     filter((val): val is NavigationEnd => val instanceof NavigationEnd),
     map((val: NavigationEnd) => val.url !== '/login')
   );
-  readonly userRole$ = this.authService.role$;
+  userRole: UserRole | null = null;
 
   constructor(
     private readonly authService: AuthService,
     private readonly router: Router
-  ) {}
+  ) {
+    authService.role$.subscribe(role => {
+      this.userRole = role;
+    });
+  }
 
   logOut() {
     this.authService.logout();

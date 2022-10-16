@@ -10,6 +10,7 @@ import { Order, OrderUrgency } from '../models/order';
 import { TransportTypesService } from '../transport-types.service';
 import { TransportType } from '../models/transport-type';
 import { YaMapComponent } from 'angular8-yandex-maps';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-order-form',
@@ -44,7 +45,10 @@ export class OrderFormComponent implements AfterViewInit {
 
   public transportTypes: TransportType[] = [];
 
-  constructor(private readonly transportTypesService: TransportTypesService) {
+  constructor(
+    private readonly transportTypesService: TransportTypesService,
+    private readonly authService: AuthService
+  ) {
     this.transportTypesService.get().subscribe(transportTypes => {
       this.transportTypes = transportTypes;
     });
@@ -71,7 +75,8 @@ export class OrderFormComponent implements AfterViewInit {
       v.finishAt,
       this.selectedTransportType!,
       coords,
-      v.urgency!
+      v.urgency!,
+      this.authService.userId!
     );
   }
 

@@ -1,9 +1,9 @@
 <div>
-  <h1>Ваши заявки</h1>
-  <app-order-list [orders]="orders" (orderDelete)="onOrderDelete($event)"></app-order-list>
+  <h1>Заявки</h1>
+  <app-order-list [orders]="(orders$ | async) ?? []" (orderDelete)="onOrderDelete($event)"></app-order-list>
 </div>
 
-<div>
+<div *ngIf="shouldShowAddOrderButton$ | async">
   <h1>&nbsp;</h1>
   <button mat-flat-button color="primary" (click)="openCreateOrderDialog()">Создать заявку</button>
 </div>

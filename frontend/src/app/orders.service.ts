@@ -33,6 +33,14 @@ export class OrdersService {
     );
   }
 
+  getMine(): Observable<Order[]> {
+    return this.getAll().pipe(
+      map(orders =>
+        orders.filter(o => o.customerId === this.authService.userId)
+      )
+    );
+  }
+
   create(order: Order) {
     return this.httpClient
       .post(

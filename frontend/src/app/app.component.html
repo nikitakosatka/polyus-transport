@@ -1,12 +1,12 @@
 <aside class="sidebar" *ngIf="sidebarVisible$ | async">
   <div class="links">
-    <a mat-button [routerLink]="['/orders']" routerLinkActive="active">
+    <a mat-button [routerLink]="['/', userRole, 'orders']" routerLinkActive="active">
       <div class="insides">
         <mat-icon>receipt_long</mat-icon>
         Заявки
       </div>
     </a>
-    <a mat-button [routerLink]="['/transport']" routerLinkActive="active">
+    <a mat-button [routerLink]="['/', userRole, 'transport']" routerLinkActive="active">
       <div class="insides">
         <mat-icon>local_shipping</mat-icon>
         Транспорт
@@ -15,7 +15,7 @@
   </div>
 
   <div>
-    Роль: {{userRole$ | async}}<br>
+    Роль: {{userRole}}<br>
     <button mat-button (click)="logOut()">
       <div class="button-insides">
         <mat-icon>logout</mat-icon>

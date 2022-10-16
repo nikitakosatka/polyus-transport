@@ -7,16 +7,43 @@ import { IsNotAuthedGuard } from './is-not-authed.guard';
 import { TransportPageComponent } from './pages/transport-page/transport-page.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'orders', pathMatch: 'full' },
   {
-    path: 'orders',
-    component: MainPageComponent,
+    path: 'customer',
     canActivate: [IsAuthedGuard],
+    children: [
+      {
+        path: '',
+        redirectTo: 'orders',
+        pathMatch: 'full',
+      },
+      {
+        path: 'orders',
+        component: MainPageComponent,
+      },
+      {
+        path: 'transport',
+        component: TransportPageComponent,
+      },
+    ],
   },
   {
-    path: 'transport',
-    component: TransportPageComponent,
+    path: 'dispatcher',
     canActivate: [IsAuthedGuard],
+    children: [
+      {
+        path: '',
+        redirectTo: 'orders',
+        pathMatch: 'full',
+      },
+      {
+        path: 'orders',
+        component: MainPageComponent,
+      },
+      {
+        path: 'transport',
+        component: TransportPageComponent,
+      },
+    ],
   },
   {
     path: 'login',
