@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">PolusDriver</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="title_home">Главная</string>
+    <string name="title_orders">Заказы</string>
+    <string name="title_notifications">Ещё</string>
+    <string name="home_your_orders">Ближайшие заказы</string>
+    <string name="login_title">Полюс.Драйв</string>
+    <string name="login_text">Логин</string>
+    <string name="password_text">Пароль</string>
+    <string name="orders_title_text">Доступные заказы</string>
+    <string name="take_order">Взять заказ</string>
+    <string name="hot_order">Срочный заказ</string>
+    <string name="take">Взять</string>
+</resources>
