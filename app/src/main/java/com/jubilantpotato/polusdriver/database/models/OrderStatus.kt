@@ -1,5 +1,7 @@
 package com.jubilantpotato.polusdriver.database.models
 
 enum class OrderStatus {
-    WORKING
+    TODO,
+    IN_PROCESS,
+    DONE
 }

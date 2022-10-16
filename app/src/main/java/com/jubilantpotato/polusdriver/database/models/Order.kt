@@ -9,7 +9,7 @@ data class Order(
     @PrimaryKey
     @ColumnInfo(name = "id")
     @SerializedName("id")
-    val id: Int,
+    val id: UUID,
 
     @ColumnInfo(name = "rate")
     @SerializedName("rate")
@@ -25,11 +25,11 @@ data class Order(
 
     @ColumnInfo(name = "customer_id")
     @SerializedName("customer_id")
-    val customerId: Int,
+    val customerId: UUID,
 
     @ColumnInfo(name = "driver_id")
     @SerializedName("driver_id")
-    val driverId: Int,
+    var driverId: UUID?,
 
     @ColumnInfo(name = "create_date")
     @SerializedName("created_at")
@@ -45,7 +45,7 @@ data class Order(
 
     @ColumnInfo(name = "transport_type_id")
     @SerializedName("transport_type_id")
-    val transportTypeId: Int,
+    val transportTypeId: UUID,
 
     @ColumnInfo(name = "address")
     @SerializedName("address")

@@ -25,7 +25,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="Заказ №ффффффффф100фффффФФФФФ3" />
+        tools:text="Заказ №1337 / Вышка" />
 
     <TextView
         android:id="@+id/orderAddress"
