@@ -43,6 +43,6 @@ async def get_by_status(status: schema.OrderStatus,
     return order.get_by_status(status, transport_type_id, db)
 
 
-@router.get('/by_driver_id')
+@router.get('/by_driver_id/{id}')
 async def get_by_driver_id(id: UUID, db: Session = Depends(get_db)):
     return order.get_by_driver_id(id, db)
