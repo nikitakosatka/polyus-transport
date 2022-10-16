@@ -35,7 +35,7 @@ def update(id, request, db):
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
                             detail=f"Driver with id {id} not found")
 
-    driver.update(request)
+    driver.update(request.dict())
     db.commit()
     return 'updated'
 
