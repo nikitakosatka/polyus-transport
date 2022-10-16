@@ -8,5 +8,6 @@ data class Driver(
     @SerializedName("name") val name: String,
     @SerializedName("email") val email: String,
     @SerializedName("status") var status: DriverStatus,
-    @SerializedName("transport_type_id") val transportTypeId: UUID
+    @SerializedName("transport_type_id") val transportTypeId: UUID,
+    @SerializedName("orders") val orders: List<Order>
 )

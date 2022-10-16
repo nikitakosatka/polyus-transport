@@ -1,6 +1,7 @@
 package com.jubilantpotato.polusdriver.ui.fragments.orders
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -43,9 +44,11 @@ class OrdersFragment : Fragment() {
         binding.newOrdersView.adapter = adapter
         binding.newOrdersView.layoutManager = LinearLayoutManager(requireContext())
 
-
         newOrders = ordersViewModel.getNewOrders()
-        newOrders.observe(viewLifecycleOwner) { adapter.submitList(it) }
+        newOrders.observe(viewLifecycleOwner) {
+            Log.d("ANBQAWSHH", it.size.toString())
+            adapter.submitList(it)
+        }
 
         binding.orderSwipeRefresh.setOnRefreshListener { loadOrders() }
 

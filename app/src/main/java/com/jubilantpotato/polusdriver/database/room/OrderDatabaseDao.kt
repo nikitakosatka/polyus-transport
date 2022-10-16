@@ -31,6 +31,6 @@ interface OrderDatabaseDao {
     @Query("SELECT * FROM orders WHERE driver_id = :id")
     fun findByDriverId(id: UUID): LiveData<List<Order>>
 
-    @Query("SELECT * FROM orders WHERE driver_id != :driverId AND status = :orderStatus")
-    fun newOrders(driverId: UUID, orderStatus: Int): LiveData<List<Order>>
+    @Query("SELECT * FROM orders WHERE status = :orderStatus AND transport_type_id = :transportTypeId")
+    fun newOrders(orderStatus: Int, transportTypeId: UUID): LiveData<List<Order>>
 }
