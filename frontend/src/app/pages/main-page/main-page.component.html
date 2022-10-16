@@ -1,6 +1,7 @@
 <div>
   <h1>Заявки</h1>
-  <app-order-list [orders]="(orders$ | async) ?? []" (orderDelete)="onOrderDelete($event)"></app-order-list>
+  <app-order-list [orders]="(orders$ | async) ?? []" (orderEdit)="onOrderEdit($event)"
+                  (orderDelete)="onOrderDelete($event)"></app-order-list>
 </div>
 
 <div *ngIf="shouldShowAddOrderButton$ | async">

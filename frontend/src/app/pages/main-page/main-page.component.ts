@@ -5,6 +5,7 @@ import { CreateOrderDialogComponent } from '../../create-order-dialog/create-ord
 import { OrdersService } from '../../orders.service';
 import { Order } from '../../models/order';
 import { map, switchMap } from 'rxjs';
+import { EditOrderDialogComponent } from '../../edit-order-dialog/edit-order-dialog.component';
 
 @Component({
   selector: 'app-main-page',
@@ -20,6 +21,8 @@ export class MainPageComponent implements OnInit {
     )
   );
 
+  private role: UserRole | null = null;
+
   readonly shouldShowAddOrderButton$ = this.authService.role$.pipe(
     map(role => role === UserRole.Customer)
   );
@@ -28,13 +31,21 @@ export class MainPageComponent implements OnInit {
     private readonly authService: AuthService,
     private readonly matDialog: MatDialog,
     private readonly ordersService: OrdersService
-  ) {}
+  ) {
+    this.authService.role$.subscribe(role => (this.role = role));
+  }
 
   openCreateOrderDialog() {
     this.matDialog.open(CreateOrderDialogComponent);
   }
 
   ngOnInit(): void {}
+
+  onOrderEdit(order: Order) {
+    this.matDialog.open(EditOrderDialogComponent, {
+      data: { order, role: this.role },
+    });
+  }
 
   onOrderDelete(order: Order) {
     return this.ordersService.delete(order);

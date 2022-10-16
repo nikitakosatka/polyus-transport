@@ -1,0 +1,6 @@
+<h1 mat-dialog-title>Изменение заявки</h1>
+<app-order-form [order]="order" [role]="role" (orderChange)="onOrderUpdate($event)"></app-order-form>
+<div mat-dialog-actions align="end">
+  <button mat-stroked-button (click)="close()">Отмена</button>
+  <button mat-flat-button color="primary" (click)="edit()">Изменить</button>
+</div>

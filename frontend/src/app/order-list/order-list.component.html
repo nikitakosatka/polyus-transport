@@ -12,6 +12,11 @@
   </div>
 
   <mat-card-actions align="end">
-    <button mat-button color="warn" (click)="deleteOrder(order)" title="Отозвать"><mat-icon>delete</mat-icon></button>
+    <button mat-button (click)="editOrder(order)" title="Изменить" *ngIf="shouldShowEditButton$ | async">
+      <mat-icon>edit</mat-icon>
+    </button>
+    <button mat-button color="warn" (click)="deleteOrder(order)" title="Отозвать">
+      <mat-icon>delete</mat-icon>
+    </button>
   </mat-card-actions>
 </mat-card>

@@ -50,6 +50,15 @@ export class OrdersService {
       .pipe(map(() => {}));
   }
 
+  edit(order: Order) {
+    return this.httpClient
+      .put(
+        `${this.apiBaseUrl}/order/${order.id}`,
+        serializeOrder(order, order.customerId)
+      )
+      .pipe(map(() => {}));
+  }
+
   delete(order: Order) {
     return this.httpClient
       .delete(`${this.apiBaseUrl}/order/${order.id}`)

@@ -34,6 +34,7 @@ import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { TransportPageComponent } from './pages/transport-page/transport-page.component';
 import { MatNativeDateModule } from '@angular/material/core';
+import { EditOrderDialogComponent } from './edit-order-dialog/edit-order-dialog.component';
 
 registerLocaleData(localeRu);
 
@@ -45,6 +46,7 @@ registerLocaleData(localeRu);
     MainPageComponent,
     OrderFormComponent,
     CreateOrderDialogComponent,
+    EditOrderDialogComponent,
     OrderListComponent,
     TransportPageComponent,
   ],
