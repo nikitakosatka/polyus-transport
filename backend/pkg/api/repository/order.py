@@ -17,9 +17,10 @@ def create(item, db):
                          status=item.status,
                          address=item.address)
 
-    transport = get_available_transport(item.transport_type_id,
-                                        item.todo_at, item.finish_at, db)
-    transport_obj = transport.first()
+    transport_by_type = get_available_transport(item.transport_type_id,
+                                                item.todo_at, item.finish_at,
+                                                db)
+    transport_obj = transport_by_type.first()
 
     transport_request = schema.Transport(id=transport_obj.id,
                                          status=transport_obj.status,
@@ -28,6 +29,8 @@ def create(item, db):
                                          busy_intervals=transport_obj.busy_intervals
                                          )
     transport_request.busy_intervals.append([item.todo_at, item.finish_at])
+    transport = db.query(models.Transport).filter(
+        models.Transport.id == transport_obj.id)
     transport.update(transport_request.dict())
 
     db.add(order)

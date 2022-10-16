@@ -81,7 +81,7 @@ class Customer(BaseModel):
 class Driver(BaseModel):
     id: UUID = Field(default_factory=uuid4)
     name: str
-    orders: List[Order] = []
+    orders: Optional[List[Order]]
     status: DriverStatus
     email: str
     password: str
