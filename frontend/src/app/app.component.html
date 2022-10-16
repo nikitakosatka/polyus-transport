@@ -1,7 +1,17 @@
 <aside class="sidebar" *ngIf="sidebarVisible$ | async">
   <div class="links">
-    <a [routerLink]="['/orders']">Заявки</a>
-    <a [routerLink]="['/transport']">Транспорт</a>
+    <a mat-button [routerLink]="['/orders']" routerLinkActive="active">
+      <div class="insides">
+        <mat-icon>receipt_long</mat-icon>
+        Заявки
+      </div>
+    </a>
+    <a mat-button [routerLink]="['/transport']" routerLinkActive="active">
+      <div class="insides">
+        <mat-icon>local_shipping</mat-icon>
+        Транспорт
+      </div>
+    </a>
   </div>
   <button mat-button (click)="logOut()">
     <div class="button-insides">

@@ -26,3 +26,18 @@ main {
   display: flex;
   flex-direction: column;
 }
+
+.links a {
+  display: block;
+  text-align: left;
+}
+
+.links a .insides {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+}
+
+.links a.active {
+  color: #673ab7;
+}

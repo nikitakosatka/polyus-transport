@@ -1,14 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TransportService } from '../../transport.service';
 import { TransportTypesService } from '../../transport-types.service';
-import {
-  BehaviorSubject,
-  filter,
-  first,
-  map,
-  switchAll,
-  switchMap,
-} from 'rxjs';
+import { BehaviorSubject, first, map, switchMap } from 'rxjs';
 import { CalendarEvent } from 'angular-calendar';
 
 @Component({
