@@ -7,12 +7,16 @@ import android.net.NetworkRequest
 import android.os.Bundle
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.jubilantpotato.polusdriver.R
 import com.jubilantpotato.polusdriver.database.Repository
 import com.jubilantpotato.polusdriver.databinding.ActivityMainBinding
 import com.jubilantpotato.polusdriver.utils.Preferences
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.util.*
 
 class MainActivity : AppCompatActivity() {
@@ -24,11 +28,15 @@ class MainActivity : AppCompatActivity() {
         override fun onAvailable(network: Network) {
             super.onAvailable(network)
             if (!preferences.isUpdateWasRecently())
-                Repository.getInstance(applicationContext).updateMyLocalOrders()
-                    .observe(this@MainActivity) { success ->
-                        if (success)
-                            preferences.setLastUpdateDate()
+                lifecycleScope.launch {
+                    withContext(Dispatchers.Main) {
+                        Repository.getInstance(applicationContext).updateMyLocalOrders()
+                            .observe(this@MainActivity) { success ->
+                                if (success)
+                                    preferences.setLastUpdateDate()
+                            }
                     }
+                }
         }
     }
 
