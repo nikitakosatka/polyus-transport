@@ -6,9 +6,7 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy.REPLACE
 import androidx.room.Query
-import com.jubilantpotato.polusdriver.database.models.Driver
 import com.jubilantpotato.polusdriver.database.models.Order
-import com.jubilantpotato.polusdriver.database.models.OrderStatus
 import java.util.*
 
 @Dao
@@ -31,6 +29,6 @@ interface OrderDatabaseDao {
     @Query("SELECT * FROM orders WHERE driver_id = :id")
     fun findByDriverId(id: UUID): LiveData<List<Order>>
 
-    @Query("SELECT * FROM orders WHERE driver_id != :driverId AND status = :orderStatus")
-    fun newOrders(driverId: UUID, orderStatus: Int): LiveData<List<Order>>
+    @Query("SELECT * FROM orders WHERE status = :orderStatus AND transport_type_id = :transportTypeId")
+    fun newOrders(orderStatus: Int, transportTypeId: UUID): LiveData<List<Order>>
 }

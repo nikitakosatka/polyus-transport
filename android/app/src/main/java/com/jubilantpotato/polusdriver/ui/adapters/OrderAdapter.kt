@@ -3,7 +3,6 @@ package com.jubilantpotato.polusdriver.ui.adapters
 import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.Context
-import android.content.DialogInterface
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,8 +10,6 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.findViewTreeLifecycleOwner
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -21,7 +18,6 @@ import com.jubilantpotato.polusdriver.R
 import com.jubilantpotato.polusdriver.database.Repository
 import com.jubilantpotato.polusdriver.database.models.Order
 import com.jubilantpotato.polusdriver.database.models.OrderStatus
-import com.jubilantpotato.polusdriver.ui.fragments.home.HomeViewModel
 import com.jubilantpotato.polusdriver.utils.Preferences
 import java.util.*
 import kotlin.math.abs
@@ -56,7 +52,7 @@ class OrderAdapter(private val context: Context) :
         private val dateStart: TextView = view.findViewById(R.id.orderDateStart)
         private val dateFinish: TextView = view.findViewById(R.id.orderDateFinish)
         private val takeButton: Button = view.findViewById(R.id.orderTake)
-        private val hotIcon: ImageView = view.findViewById(R.id.orderDateFinish)
+        private val hotIcon: ImageView = view.findViewById(R.id.orderHot)
 
         init {
             if (viewType == ORDER_TYPE_MY)
@@ -65,7 +61,7 @@ class OrderAdapter(private val context: Context) :
 
         @SuppressLint("SetTextI18n")
         fun bind(order: Order) {
-            if (order.driverId == Preferences(context).getDriver().id && order.status == OrderStatus.IN_PROCESS)
+            if (order.driverId == Preferences(context).getDriver().id && order.status == OrderStatus.in_process)
                 itemView.setOnLongClickListener {
                     AlertDialog.Builder(context)
                         .setTitle("Вы уверены что хотите завершить данный заказ?")
@@ -160,7 +156,7 @@ class OrderAdapter(private val context: Context) :
         }
 
         companion object {
-            private const val HIGH_RATE = 2
+            private const val HIGH_RATE = "HIGH"
         }
     }
 

@@ -13,7 +13,7 @@ data class Order(
 
     @ColumnInfo(name = "rate")
     @SerializedName("rate")
-    val rate: Int,
+    val rate: String,
 
     @ColumnInfo(name = "title")
     @SerializedName("title")

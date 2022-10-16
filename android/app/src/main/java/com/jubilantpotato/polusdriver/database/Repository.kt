@@ -1,5 +1,6 @@
 package com.jubilantpotato.polusdriver.database
 
+import android.annotation.SuppressLint
 import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -13,7 +14,6 @@ import com.jubilantpotato.polusdriver.utils.Preferences
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.util.*
 
 class Repository private constructor(context: Context) {
 
@@ -25,12 +25,13 @@ class Repository private constructor(context: Context) {
 
     private val remoteData = DriverRemoteData(RetrofitBuilder.api)
     private val preferences = Preferences(context)
+    @SuppressLint("RestrictedApi")
     private val db = OrderDatabase.getInstance(context)
     private val dbDao = db.orderDao()
 
     fun getMyOrders() = dbDao.findByDriverId(preferences.getDriver().id)
 
-    fun getNewOrders() = dbDao.newOrders(preferences.getDriver().id, OrderStatus.TODO.ordinal)
+    fun getNewOrders() = dbDao.newOrders(OrderStatus.todo.ordinal, preferences.getDriver().transportTypeId)
 
     fun updateMyLocalOrders(): LiveData<Boolean> {
         val liveData = MutableLiveData<Boolean>()
@@ -38,11 +39,13 @@ class Repository private constructor(context: Context) {
             .enqueue(object : Callback<List<Order>> {
                 override fun onResponse(call: Call<List<Order>>, response: Response<List<Order>>) {
                     if (response.isSuccessful && response.body() != null) {
-                        dbDao.deleteUnavailable(
-                            preferences.getDriver().id,
-                            OrderStatus.DONE.ordinal
-                        )
-                        dbDao.insert(response.body()!!)
+                        Thread {
+                            dbDao.deleteUnavailable(
+                                preferences.getDriver().id,
+                                OrderStatus.done.ordinal
+                            )
+                            dbDao.insert(response.body()!!)
+                        }.start()
                         liveData.value = true
                     } else
                         liveData.value = false
@@ -58,15 +61,17 @@ class Repository private constructor(context: Context) {
 
     fun updateNewLocalOrders(): LiveData<Boolean> {
         val liveData = MutableLiveData<Boolean>()
-        remoteData.getOrdersByStatus(OrderStatus.TODO, preferences.getDriver().transportTypeId)
+        remoteData.getOrdersByStatus(OrderStatus.todo, preferences.getDriver().transportTypeId)
             .enqueue(object : Callback<List<Order>> {
                 override fun onResponse(call: Call<List<Order>>, response: Response<List<Order>>) {
                     if (response.isSuccessful && response.body() != null) {
-                        dbDao.deleteUnavailable(
-                            preferences.getDriver().id,
-                            OrderStatus.DONE.ordinal
-                        )
-                        dbDao.insert(response.body()!!)
+                        Thread {
+                            dbDao.deleteUnavailable(
+                                preferences.getDriver().id,
+                                OrderStatus.done.ordinal
+                            )
+                            dbDao.insert(response.body()!!)
+                        }.start()
                         liveData.value = true
                     } else
                         liveData.value = false
@@ -97,12 +102,14 @@ class Repository private constructor(context: Context) {
 
     fun finishOrder(order: Order): LiveData<Boolean> {
         val liveData = MutableLiveData<Boolean>()
-        remoteData.updateOrder(order.id, order.apply { status = OrderStatus.DONE })
+        remoteData.updateOrder(order.id, order.apply { status = OrderStatus.done })
             .enqueue(object : Callback<String> {
                 override fun onResponse(call: Call<String>, response: Response<String>) {
                     liveData.value = response.isSuccessful
                     if (response.isSuccessful)
-                        dbDao.delete(order)
+                        Thread {
+                            dbDao.delete(order)
+                        }.start()
                 }
 
                 override fun onFailure(call: Call<String>, t: Throwable) {
@@ -116,14 +123,16 @@ class Repository private constructor(context: Context) {
     fun takeOrder(order: Order): LiveData<Boolean> {
         val liveData = MutableLiveData<Boolean>()
         remoteData.updateOrder(order.id, order.apply {
-            status = OrderStatus.IN_PROCESS
+            status = OrderStatus.in_process
             driverId = preferences.getDriver().id
         })
             .enqueue(object : Callback<String> {
                 override fun onResponse(call: Call<String>, response: Response<String>) {
                     liveData.value = response.isSuccessful
                     if (response.isSuccessful)
-                        dbDao.insert(order)
+                        Thread {
+                            dbDao.insert(order)
+                        }.start()
                 }
 
                 override fun onFailure(call: Call<String>, t: Throwable) {

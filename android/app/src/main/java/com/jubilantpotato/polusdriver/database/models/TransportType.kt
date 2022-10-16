@@ -1,8 +1,6 @@
 package com.jubilantpotato.polusdriver.database.models
 
-import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
-import com.jubilantpotato.polusdriver.database.models.Transport
 import java.util.*
 
 data class TransportType(

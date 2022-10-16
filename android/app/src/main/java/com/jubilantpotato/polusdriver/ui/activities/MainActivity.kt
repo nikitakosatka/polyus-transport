@@ -5,18 +5,14 @@ import android.net.Network
 import android.net.NetworkCapabilities
 import android.net.NetworkRequest
 import android.os.Bundle
-import android.util.Log
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.jubilantpotato.polusdriver.R
 import com.jubilantpotato.polusdriver.database.Repository
 import com.jubilantpotato.polusdriver.databinding.ActivityMainBinding
 import com.jubilantpotato.polusdriver.utils.Preferences
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 import java.util.*
 
 class MainActivity : AppCompatActivity() {

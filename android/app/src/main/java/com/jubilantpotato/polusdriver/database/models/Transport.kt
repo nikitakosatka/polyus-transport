@@ -1,6 +1,5 @@
 package com.jubilantpotato.polusdriver.database.models
 
-import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 import java.util.*
 

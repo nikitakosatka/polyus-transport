@@ -4,15 +4,12 @@ import android.content.Intent
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.Button
 import android.widget.Toast
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKey
-import androidx.security.crypto.MasterKeys
 import com.google.android.material.textfield.TextInputEditText
 import com.jubilantpotato.polusdriver.R
-import com.jubilantpotato.polusdriver.database.Repository
 import com.jubilantpotato.polusdriver.database.models.Driver
 import com.jubilantpotato.polusdriver.database.models.ResponseLogin
 import com.jubilantpotato.polusdriver.retrofit.RetrofitBuilder
@@ -22,7 +19,6 @@ import kotlinx.coroutines.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import kotlin.coroutines.CoroutineContext
 
 class LoginActivity : AppCompatActivity() {
 
