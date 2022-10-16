@@ -4,13 +4,13 @@
     <mat-option *ngFor="let type of (transportTypes$ | async); index as i" [value]="type.id">{{type.name}}</mat-option>
   </mat-select>
 </mat-form-field>
-<br><br>
+&nbsp;
 <mat-form-field appearance="outline">
   <mat-label>Дата</mat-label>
-  <input matInput [ngxMatDatetimePicker]="finishAtPicker" [(ngModel)]="calendarViewDate">
+  <input matInput [matDatepicker]="datePicker" [(ngModel)]="calendarViewDate">
   <mat-hint>ДД.ММ.ГГГГ</mat-hint>
-  <mat-datepicker-toggle matSuffix [for]="$any(finishAtPicker)"></mat-datepicker-toggle>
-  <ngx-mat-datetime-picker #finishAtPicker></ngx-mat-datetime-picker>
+  <mat-datepicker-toggle matSuffix [for]="$any(datePicker)"></mat-datepicker-toggle>
+  <mat-datepicker #datePicker></mat-datepicker>
 </mat-form-field>
 <br><br>
 <div class="overflowable">

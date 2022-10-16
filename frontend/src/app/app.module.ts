@@ -33,6 +33,7 @@ import { AngularYandexMapsModule } from 'angular8-yandex-maps';
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { TransportPageComponent } from './pages/transport-page/transport-page.component';
+import { MatNativeDateModule } from '@angular/material/core';
 
 registerLocaleData(localeRu);
 
@@ -62,6 +63,7 @@ registerLocaleData(localeRu);
     MatProgressSpinnerModule,
     MatDatepickerModule,
     NgxMatDatetimePickerModule,
+    MatNativeDateModule,
     NgxMatNativeDateModule,
     MatSelectModule,
     AngularYandexMapsModule,
